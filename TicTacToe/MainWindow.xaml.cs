@@ -124,6 +124,7 @@ namespace TicTacToe
             CheckHrizontalWin();
             CheckVerticlWin();
             CheckDiagonalWin();
+
             //Check for no winner
             if (!mResults.Any(result => result == MarkType.Free))
             {
@@ -133,7 +134,6 @@ namespace TicTacToe
                 });
                 MessageBox.Show("No player won this time");
             } 
-
         }
 
         /// <summary>
