@@ -121,15 +121,33 @@ namespace TicTacToe
         /// </summary>
         private void CheckForWin()
         {
-            //Check for horizontal wins
+            CheckHrizontalWin();
+            CheckVerticlWin();
+            CheckDiagonalWin();
+            //Check for no winner
+            if (!mResults.Any(result => result == MarkType.Free))
+            {
+                Container.Children.Cast<Button>().ToList().ForEach(button =>
+                {
+                    button.Background = Brushes.Orange;
+                });
+                MessageBox.Show("No player won this time");
+            } 
 
+        }
+
+        /// <summary>
+        /// If there is a horizontal win
+        /// </summary>
+        private void CheckHrizontalWin()
+        {
             //
             // Row 0
             //
-            if (mResults[0]!= MarkType.Free && (mResults[0]==mResults[1] && mResults[0]==mResults[2]))
+            if (mResults[0] != MarkType.Free && (mResults[0] == mResults[1] && mResults[0] == mResults[2]))
             {
                 mgameEnded = true;
-                
+
                 //Highlight winning cell in green
                 Button0_0.Background = Button1_0.Background = Button2_0.Background = Brushes.Green;
             }
@@ -155,9 +173,14 @@ namespace TicTacToe
                 //Highlight winning cell in green
                 Button0_2.Background = Button1_2.Background = Button2_2.Background = Brushes.Green;
             }
+        }
 
-            //Check for vertical wins
 
+        /// <summary>
+        /// If there is a vertical win
+        /// </summary>
+        private void CheckVerticlWin()
+        {
             //
             // Col 0
             //
@@ -191,8 +214,13 @@ namespace TicTacToe
                 Button2_0.Background = Button2_1.Background = Button2_2.Background = Brushes.Green;
             }
 
+        }
 
-            //Check diagonal win
+        /// <summary>
+        /// If there is a diagonal win
+        /// </summary>
+        private void CheckDiagonalWin()
+        {
             if (mResults[0] != MarkType.Free && (mResults[0] == mResults[4] && mResults[0] == mResults[8]))
             {
                 mgameEnded = true;
@@ -207,16 +235,6 @@ namespace TicTacToe
                 //Highlight winning cell in green
                 Button0_2.Background = Button1_1.Background = Button2_0.Background = Brushes.Green;
             }
-
-            //Check for no winner
-            if (!mResults.Any(result => result == MarkType.Free))
-            {
-                Container.Children.Cast<Button>().ToList().ForEach(button =>
-                {
-                    button.Background = Brushes.Orange;
-                });
-            } 
-
         }
     }
 }
